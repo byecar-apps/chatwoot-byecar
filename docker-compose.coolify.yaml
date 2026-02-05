@@ -2,9 +2,8 @@ version: '3'
 
 services:
   rails:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile
+    image: 'ghcr.io/fazer-ai/chatwoot:latest'
+    pull_policy: always
     volumes:
       - 'storage:/app/storage'
     depends_on:
@@ -57,9 +56,8 @@ services:
       retries: 10
 
   sidekiq:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile
+    image: 'ghcr.io/fazer-ai/chatwoot:latest'
+    pull_policy: always
     volumes:
       - 'storage:/app/storage'
     depends_on:
