@@ -243,12 +243,12 @@
           "ZAPI_DESC": "Connect via non-official API Z-API"
         },
         "SELECT_PROVIDER": {
-          "TITLE": "Select your API provider",
-          "DESCRIPTION": "Choose your WhatsApp provider. You can connect directly through Meta which requires no setup, or connect through Twilio using your account credentials.",
-          "ZAPI_PROMO": {
-            "TITLE": "Looking for a reliable WhatsApp solution?",
-            "DESCRIPTION": "Z-API offers superior stability compared to Baileys and is much simpler to set up than Cloud or Twilio - no complex configuration required. Perfect for businesses that want to get started quickly.",
-            "CTA": "Use Z-API"
+          "TITLE": "Add a new WhatsApp",
+          "DESCRIPTION": "Connect your team member's WhatsApp to receive and send messages directly from the platform.",
+          "BAILEYS_PROMO": {
+            "TITLE": "Add a team member's WhatsApp",
+            "DESCRIPTION": "Connect the personal or business WhatsApp of your team members. Each collaborator can have their own number integrated with the platform.",
+            "CTA": "Add WhatsApp"
           }
         },
         "INBOX_NAME": {

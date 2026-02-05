@@ -243,12 +243,12 @@
           "ZAPI_DESC": "Conectar via API não-oficial Z-API"
         },
         "SELECT_PROVIDER": {
-          "TITLE": "Selecione seu provedor de API",
-          "DESCRIPTION": "Escolha seu provedor do WhatsApp. Você pode se conectar diretamente através de metade, que não requer nenhuma configuração ou se conectar pelo Twilio usando as credenciais da sua conta.",
-          "ZAPI_PROMO": {
-            "TITLE": "Procurando uma solução WhatsApp confiável?",
-            "DESCRIPTION": "Z-API oferece estabilidade superior comparado ao Baileys e é muito mais simples de configurar que Cloud ou Twilio - sem necessidade de configuração complexa. Perfeito para empresas que querem começar rapidamente.",
-            "CTA": "Usar Z-API"
+          "TITLE": "Adicionar novo WhatsApp",
+          "DESCRIPTION": "Conecte o WhatsApp de um membro da equipe para receber e enviar mensagens diretamente pela plataforma.",
+          "BAILEYS_PROMO": {
+            "TITLE": "Adicionar WhatsApp de colaborador",
+            "DESCRIPTION": "Conecte o WhatsApp pessoal ou comercial dos seus colaboradores. Cada membro da equipe pode ter seu próprio número integrado à plataforma.",
+            "CTA": "Adicionar WhatsApp"
           }
         },
         "INBOX_NAME": {
