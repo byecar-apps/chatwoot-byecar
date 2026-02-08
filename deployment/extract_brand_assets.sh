@@ -39,6 +39,24 @@ else
 fi
 
 echo "Flattening all files from extracted archive…"
-find "$EXTRACT_DIR" -type f -exec mv -f {} "$TARGET_DIR/" \;
+# Count files first for progress
+FILE_COUNT=$(find "$EXTRACT_DIR" -type f | wc -l)
+echo "Found $FILE_COUNT file(s) to extract"
 
-echo "Process completed."
+# Use a safer method: copy files first, then remove source
+# This avoids issues with mv when TARGET_DIR might be inside EXTRACT_DIR
+COUNTER=0
+find "$EXTRACT_DIR" -type f | while read -r file; do
+  COUNTER=$((COUNTER + 1))
+  filename=$(basename "$file")
+  # Only show progress for every 10th file or last file
+  if [ $((COUNTER % 10)) -eq 0 ] || [ $COUNTER -eq $FILE_COUNT ]; then
+    echo "Extracting $COUNTER/$FILE_COUNT: $filename"
+  fi
+  cp -f "$file" "$TARGET_DIR/"
+done
+
+# Remove extracted directory after copying
+rm -rf "$EXTRACT_DIR"
+
+echo "Process completed. $FILE_COUNT file(s) extracted to $TARGET_DIR/"
