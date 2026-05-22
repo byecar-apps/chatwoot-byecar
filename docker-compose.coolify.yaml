@@ -99,6 +99,33 @@ services:
       timeout: 20s
       retries: 10
 
+  whatsapp-monitor:
+    image: 'ghcr.io/fazer-ai/chatwoot:latest'
+    pull_policy: always
+    volumes:
+      - 'storage:/app/storage'
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      - RAILS_ENV=production
+      - INSTALLATION_ENV=docker
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USERNAME=${SERVICE_USER_POSTGRES}
+      - POSTGRES_PASSWORD=${SERVICE_PASSWORD_POSTGRES}
+      - POSTGRES_DATABASE=${POSTGRES_DB:-chatwoot_production}
+      - SECRET_KEY_BASE=${SERVICE_PASSWORD_64_SECRETKEYBASE}
+      - REDIS_URL=redis://redis:6379
+      - REDIS_PASSWORD=${SERVICE_PASSWORD_REDIS}
+      - FRONTEND_URL=${SERVICE_URL_RAILS}
+      - SLACK_WHATSAPP_MONITOR_WEBHOOK_URL=${SLACK_WHATSAPP_MONITOR_WEBHOOK_URL}
+    command:
+      - sh
+      - '-c'
+      - 'while true; do bundle exec rails runner script/monitor_whatsapp_slack.rb >> /app/log/whatsapp_monitor.log 2>&1; sleep 600; done'
+    restart: always
+
   postgres:
     image: 'pgvector/pgvector:pg16'
     restart: always
