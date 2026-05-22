@@ -56,7 +56,7 @@ end
 # ------------------------------------------------------------------
 
 def inbox_settings_url(account_id, inbox_id)
-  "#{FRONTEND_URL}/app/accounts/#{account_id}/settings/inboxes/#{inbox_id}"
+  "#{FRONTEND_URL}/app/accounts/#{account_id}/settings/inboxes/#{inbox_id}/configuration"
 end
 
 # ------------------------------------------------------------------
