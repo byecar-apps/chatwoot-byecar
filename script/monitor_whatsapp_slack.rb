@@ -80,22 +80,23 @@ rescue StandardError => e
 end
 
 def send_disconnected_alert(inbox, channel, first_detected)
-  url = inbox_settings_url(inbox.account_id, inbox.id)
+  url   = inbox_settings_url(inbox.account_id, inbox.id)
+  error = channel.provider_connection&.dig('error')
+
+  fields = [
+    { type: 'mrkdwn', text: "*Caixa:*\n#{inbox.name}" },
+    { type: 'mrkdwn', text: "*Status:*\n:red_circle: Desconectada" },
+    { type: 'mrkdwn', text: "*Provider:*\n#{channel.provider}" },
+    { type: 'mrkdwn', text: "*Detectado em:*\n#{first_detected}" }
+  ]
+  fields << { type: 'mrkdwn', text: "*Motivo:*\n#{error}" } if error.present?
 
   post_to_slack([
     {
       type: 'header',
       text: { type: 'plain_text', text: ':warning: Inbox WhatsApp Desconectada', emoji: true }
     },
-    {
-      type: 'section',
-      fields: [
-        { type: 'mrkdwn', text: "*Caixa:*\n#{inbox.name}" },
-        { type: 'mrkdwn', text: "*Status:*\n:red_circle: Desconectada" },
-        { type: 'mrkdwn', text: "*Provider:*\n#{channel.provider}" },
-        { type: 'mrkdwn', text: "*Detectado em:*\n#{first_detected}" }
-      ]
-    },
+    { type: 'section', fields: fields },
     {
       type: 'actions',
       elements: [
