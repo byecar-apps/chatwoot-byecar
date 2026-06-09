@@ -79,9 +79,25 @@ rescue StandardError => e
   warn "[WhatsApp Monitor] Erro ao enviar para o Slack: #{e.message}"
 end
 
+DISCONNECT_REASONS = {
+  'loggedOut'           => 'Dispositivo desconectado manualmente',
+  'connectionLost'      => 'Conexão perdida inesperadamente',
+  'connectionClosed'    => 'Conexão encerrada',
+  'connectionReplaced'  => 'Substituído por outra sessão ativa',
+  'timedOut'            => 'Timeout de conexão',
+  'badSession'          => 'Sessão inválida — reconexão necessária',
+  'multideviceMismatch' => 'Incompatibilidade de dispositivo',
+  'wrong_phone_number'  => 'Número do QR diferente do configurado'
+}.freeze
+
+def human_disconnect_reason(raw_error)
+  return nil if raw_error.blank?
+  DISCONNECT_REASONS[raw_error] || raw_error.gsub(/([A-Z])/, ' \1').strip.capitalize
+end
+
 def send_disconnected_alert(inbox, channel, first_detected)
   url   = inbox_settings_url(inbox.account_id, inbox.id)
-  error = channel.provider_connection&.dig('error')
+  error = human_disconnect_reason(channel.provider_connection&.dig('error'))
 
   fields = [
     { type: 'mrkdwn', text: "*Caixa:*\n#{inbox.name}" },
