@@ -101,3 +101,7 @@ CLAUDE.local.md
 .histoire
 .pnpm-store/*
 local/
+
+# Ajustes de docker compose especificos de cada maquina de desenvolvimento
+docker-compose.override.yaml
+docker-compose.override.yml
